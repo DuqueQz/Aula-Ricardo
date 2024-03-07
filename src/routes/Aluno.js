@@ -1,6 +1,6 @@
 const alunoController = require('../controllers/Aluno');
 
 module.exports = (app) => {
-    app.get('/aluno/:name', alunoController.getAluno)
-    
+    app.get('/aluno', alunoController.getAluno)
+    app.post('/aluno', alunoController.postAluno)
 }
