@@ -1,4 +1,4 @@
-FROM postgres:13.3-buster
+FROM postgres:15-alpine 
 
 COPY init.sql /docker-entrypoint-initdb.d/
 
