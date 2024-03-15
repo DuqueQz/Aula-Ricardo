@@ -19,7 +19,11 @@
   "paths": {
     "/aluno": {
       "get": {
-        "description": "",
+        "tags": [
+          "aluno"
+        ],
+        "summary": "Consulta a lista de alunos",
+        "description": "Consulta lista de alunos cadastrados",
         "responses": {
           "201": {
             "description": "Criado"
@@ -30,6 +34,9 @@
         }
       },
       "post": {
+        "tags": [
+          "aluno"
+        ],
         "description": "",
         "responses": {
           "201": {
@@ -43,6 +50,9 @@
     },
     "/aluno/{id}": {
       "delete": {
+        "tags": [
+          "aluno"
+        ],
         "description": "",
         "parameters": [
           {
@@ -62,6 +72,9 @@
         }
       },
       "put": {
+        "tags": [
+          "aluno"
+        ],
         "description": "",
         "parameters": [
           {
@@ -93,6 +106,9 @@
         }
       },
       "patch": {
+        "tags": [
+          "aluno"
+        ],
         "description": "",
         "parameters": [
           {
