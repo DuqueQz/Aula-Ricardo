@@ -17,7 +17,7 @@ function comparePassword(storedPassword, salt, providedPassword) {
     const hash = hashPassword(providedPassword, salt)
     return hash === storedPassword
 }
-
+hj
 console.log(comparePassword(storedPassword, salt, password))
 
 const hashedPassword = hashPassword(password, salt)
