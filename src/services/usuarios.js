@@ -75,7 +75,7 @@ const patchPassword = async (params) => {
             return "Nova senha deve ser diferente da senha atual.";
         }
     }else{
-       return console.error('Senha inválida')
+       return console.error('Senha inválida')    
        return "Senha inválida.";
     }
 }
