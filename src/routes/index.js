@@ -5,6 +5,6 @@ const Usuarios = require('./usuarios');
 
 module.exports = (app) => {
     Aluno(app)
-    Login(app)
+   Login(app)
     Usuarios(app)
 }
