@@ -1,31 +1,33 @@
-const db = require('../config/db')
+const db = require('../configs/pg')
 const jwt = require('jsonwebtoken')
 const cript = require('../utils/salt')
+const fs = require('fs')
 
 const sql_get = 
-` select usuarios.usu_name,
-         usuarios.usu_salt,
-         usuarios.usu_password
-    from usuarios
-   where usu_name = $1 `
+`select users.username,
+        users.salt, 
+        users.usu_password
+   from users
+  where users.username = $1 `
 
-const login = async (params) => {
-    const {user, pass} = params
+const login = async(params) => {
+    const{user, pass} = params
     result = await db.query(sql_get, [user])
-    if (!result.rows.lengh) throw new Error("USUÁRIO NÃO EXISTE!")
+    if (!result.rows.length) throw new Error("Usuário não existe")
     else {
-        const salt = result.rows[0].usu_salt
-        const password = result.rows[0].usu_password
-        if (cript.comparePassword(password, salt, pass)) {
-            let perfilAcesso = result.rows[0].usu_name
-            let token = jwt.sign({perfilAcesso}, process.env.PRIVATE_AUTH, {algorithm: 'RS256', expiresIn: '7d' })
+        const salt = result.rows[0].salt
+        const password = result.rows[0].password
+        if (cript.comparePassword(password, salt, pass)){
+            let perfilAcesso = result.rows[0].username
+            const privateKey = fs.readFileSync("./src/private/private_key.pem");
+            let token = jwt.sign({perfilAcesso}, privateKey, {algorithm: 'RS256', expiresIn: '7d'})
             return {
                 status: 'Logado com sucesso!',
-                user: result.rows[0].usu_name,
-                token : token
+                user: result.rows[0].username,
+                token: token
             }
         } else {
-            throw { status: 400, type: 'WARN', message: `Senha Inválida!`, detail: ''}
+            throw {status: 400, type: 'WARN', message: 'Senha inválida!', detail: ''}
         }
     }
 }

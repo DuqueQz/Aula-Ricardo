@@ -61,11 +61,11 @@ const patchPassword = async (params) => {
     let hashedNewPassword;
     const {id, name, password, newPassword} = params
     const userData = await getUserId(id)
-    let validorPassword = cript.comparePassword(userData.usu_password,userData.usu_salt, password)
+    let validorPassword = cript.comparePassword(userData.usu_password,userData.salt, password)
     if(validorPassword){
-        validorPassword = cript.comparePassword(userData.usu_password,userData.usu_salt, newPassword)
+        validorPassword = cript.comparePassword(userData.usu_password,userData.salt, newPassword)
         if(!validorPassword){
-            hashedNewPassword = cript.hashPassword(newPassword, userData.usu_salt)
+            hashedNewPassword = cript.hashPassword(newPassword, userData.salt)
             let sql = `usu_password = '${hashedNewPassword}' where id = ${id} `
             binds.push(sql)
             console.log(binds)  
@@ -76,7 +76,6 @@ const patchPassword = async (params) => {
         }
     }else{
        return console.error('Senha inválida')    
-       return "Senha inválida.";
     }
 }
 
