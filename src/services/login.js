@@ -13,10 +13,11 @@ const sql_get =
 const login = async(params) => {
     const{user, pass} = params
     result = await db.query(sql_get, [user])
+       
     if (!result.rows.length) throw new Error("Usuário não existe")
     else {
         const salt = result.rows[0].salt
-        const password = result.rows[0].password
+        const password = result.rows[0].usu_password
         if (cript.comparePassword(password, salt, pass)){
             let perfilAcesso = result.rows[0].username
             const privateKey = fs.readFileSync("./src/private/private_key.pem");

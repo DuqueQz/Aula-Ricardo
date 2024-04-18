@@ -2,7 +2,7 @@ const loginService = require('../services/login')
 
 const login = async (req, res, next) => {
     if (req.headers && req.headers.authorization && req.headers.authorization.indexOf('Basic') > -1) {
-        const BasicToken = req.headers.authorization
+        const basicToken = req.headers.authorization
         token = decodeURIComponent(Buffer.from(basicToken.substr(basicToken.indexOf('Basic') + 6), 'base64'))
         let posPonto = token.indexOf(':')
         req.body.user = token.substr(0, posPonto)
